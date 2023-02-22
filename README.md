@@ -1,11 +1,11 @@
 # utils-python
 Scripts para la instalación y configuración de sistemas de manera automatizada
 
-a. Script para la instalación de docker-ce, portainer, mariadb y postgresql en un servidor linux
+## a. Script para la instalación de docker-ce, portainer, mariadb y postgresql en un servidor linux
 
 [docker-mariadb-postgres.py](https://github.com/darioaxel/utils-python/blob/main/docker-mariadb-postgres.py)
-
-b. Script para configurar un router en Ubuntu Server que gestione dos redes, utilizando IPTABLES:  
+---
+## b. Script para configurar un router en Ubuntu Server que gestione dos redes, utilizando IPTABLES:  
   RED A: 10.0.1.0   interfaz: enp0s2  
   RED B: 10.0.2.0   interfaz: enp0s8
   
@@ -37,3 +37,4 @@ El resto de puertos queda cerrado
    
    
    [router-2networks-iptables.py](https://github.com/darioaxel/utils-python/blob/main/router-2networks-iptables.py)
+---
