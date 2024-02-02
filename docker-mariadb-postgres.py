@@ -25,4 +25,7 @@ os.system('sudo docker run -d -p 3306:3306 --name mariadb --restart always -v ma
 os.system('sudo docker volume create postgres_data')
 os.system('sudo docker run -d -p 5432:5432 --name postgres --restart always -v postgres_data:/var/lib/postgresql/data -e POSTGRES_PASSWORD=alumno -e POSTGRES_USER=alumno postgres')
 
+# Instalar DBeaver-CE
+os.system('wget https://dbeaver.io/files/dbeaver-ce_latest_amd64.deb')
+os.system('sudo dpkg -i ./dbeaver-ce_latest_amd64.deb')
 print('Todo terminado!')
