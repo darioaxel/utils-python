@@ -59,8 +59,11 @@ os.system('sudo apt-get install -y code')
 run_command('sudo apt-get install -y mariadb-client')
 
 # Instalar el cliente de MongoDB
-run_command('sudo apt-get install -y mongodb-clients')
-
+run_command('sudo apt-get install -y mongodb-clientsudo as')
+run_command('wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -')
+run_command('echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list')
+run.command('sudo apt-get update')
+run.command('sudo apt-get install -y mongocli')
 # Descargar los scripts SQL
 run_command('wget https://gist.githubusercontent.com/josejuansanchez/c408725e848afd64dd9a20ab37fba8c9/raw/14d8789a40e2a25250f4e11d54a39e8f7a5e3c08/jardineria.sql -O jardineria.sql')
 run_command('wget https://raw.githubusercontent.com/darioaxel/BasesdeDatos/main/ejercicios_propuestos/scripts/jardineria2.0.sql -O jardineria2.0.sql')
