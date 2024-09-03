@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import time
 
 def run_command(command):
     result = os.system(command)
@@ -44,8 +45,8 @@ run_command('sudo docker run -d -p 27017:27017 --name mongodb --restart always -
 
 # Instalar MongoDB Compass
 run_command('wget https://downloads.mongodb.com/compass/mongodb-compass_1.36.0_amd64.deb')
-os.system('sudo dpkg -i mongodb-compass_1.36.0_amd64.deb')
-os.system('sudo apt-get install -f -y')  # Para instalar dependencias faltantes
+run_command('sudo dpkg -i mongodb-compass_1.36.0_amd64.deb')
+run_command('sudo apt-get install -f -y')  # Para instalar dependencias faltantes
 
 # Instalar Visual Studio Code
 run_command('wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg')
@@ -58,13 +59,14 @@ run_command('sudo apt-get install -y code')
 # Instalar el cliente de MariaDB
 run_command('sudo apt-get install -y mariadb-client')
 
+# Instalar el cliente de PostgreSQL
+run_command('sudo apt-get install -y postgresql-client')
 
 # Descargar los scripts SQL
 run_command('wget https://gist.githubusercontent.com/josejuansanchez/c408725e848afd64dd9a20ab37fba8c9/raw/94f317604fda43e5dc7b5e859be82307c62c4488/jardineria.sql -O jardineria.sql')
 run_command('wget https://raw.githubusercontent.com/darioaxel/BasesdeDatos/main/ejercicios_propuestos/scripts/jardineria2.0.sql -O jardineria2.0.sql')
 
 # Esperar a que MariaDB esté listo
-import time
 print("Esperando a que MariaDB inicie...")
 time.sleep(30)  # Esperar 30 segundos para que MariaDB esté completamente operativo
 
@@ -83,6 +85,18 @@ else:
     print("Error al ejecutar el script jardineria2.0.sql")
     exit(1)
 
+# Esperar a que PostgreSQL esté listo
+print("Esperando a que PostgreSQL inicie...")
+time.sleep(30)  # Esperar 30 segundos para que PostgreSQL esté completamente operativo
+
+# Ejecutar el script SQL en PostgreSQL usando psql
+result3 = os.system('psql -h localhost -U alumno -f jardineria.sql')
+if result3 == 0:
+    print("Script jardineria_postgres.sql ejecutado con éxito en PostgreSQL")
+else:
+    print("Error al ejecutar el script jardineria_postgres.sql en PostgreSQL")
+    exit(1)
+
 # Instalar mongocli
 run_command('wget -qO - https://pgp.mongodb.com/server-6.0.asc | sudo apt-key add -')
 run_command('echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.com/apt/ubuntu focal/mongodb-enterprise/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-enterprise.list')
@@ -93,7 +107,6 @@ run_command('sudo apt-get install -y mongocli')
 run_command('wget https://raw.githubusercontent.com/darioaxel/BasesdeDatos/main/restaurantes.json -O restaurantes.json')
 
 # Esperar a que MongoDB esté listo
-import time
 print("Esperando a que MongoDB inicie...")
 time.sleep(30)  # Esperar 30 segundos para que MongoDB esté completamente operativo
 
