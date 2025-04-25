@@ -38,3 +38,6 @@ El resto de puertos queda cerrado
    
    [router-2networks-iptables.py](https://github.com/darioaxel/utils-python/blob/main/router-2networks-iptables.py)
 ---
+
+
+https://drive.google.com/drive/folders/18HWSRkwfdThqH7NtLeEI7cEHRfoYmWF4?usp=drive_link
