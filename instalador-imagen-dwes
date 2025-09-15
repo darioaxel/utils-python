@@ -9,8 +9,21 @@ def run_command(command):
         print(f"Error ejecutando el comando: {command}")
         exit(1)
 
-# Desinstalar Docker si existía
-run_command('sudo apt-get purge docker-ce -y')
+def check_docker_installed():
+    # Comprobar si docker-ce está instalado
+    check_cmd = "dpkg -l | grep docker-ce"
+    return os.system(check_cmd) == 0
+
+# Si Docker CE existe, desinstalar y borrar datos residuales
+if check_docker_installed():
+    print("Docker CE encontrado. Desinstalando y borrando datos residuales...")
+    run_command('sudo systemctl stop docker')
+    run_command('sudo apt-get purge -y docker-ce docker-ce-cli containerd.io')
+    run_command('sudo rm -rf /var/lib/docker')
+    run_command('sudo rm -rf /var/lib/containerd')
+else:
+    print("Docker CE no está instalado. Procediendo con la instalación...")
+
 # Instalar Docker CE
 run_command('sudo apt-get update')
 run_command('sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release')
