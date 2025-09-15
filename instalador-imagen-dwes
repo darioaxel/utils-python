@@ -41,11 +41,6 @@ run_command('sudo dpkg -i ./dbeaver-ce_latest_amd64.deb')
 run_command('sudo docker volume create mongodb_data')
 run_command('sudo docker run -d -p 27017:27017 --name mongodb --restart always -v mongodb_data:/data/db mongo')
 
-# Instalar MongoDB Compass
-run_command('wget https://downloads.mongodb.com/compass/mongodb-compass_1.36.0_amd64.deb')
-run_command('sudo dpkg -i mongodb-compass_1.36.0_amd64.deb')
-run_command('sudo apt-get install -f -y')  # Para instalar dependencias faltantes
-
 # Instalar Visual Studio Code
 run_command('wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg')
 run_command('sudo install -o root -g root -m 644 microsoft.gpg /etc/apt/trusted.gpg.d/')
@@ -117,8 +112,14 @@ else:
 
 # --- NUEVAS INSTALACIONES SOLICITADAS ---
 
-# Instalar IntelliJ IDEA Community Edition
-run_command('sudo snap install intellij-idea-community --classic')  # Método oficial y confiable
+# Instalar IntelliJ IDEA Community Edition descargando y descomprimiendo
+intellij_tarball = "ideaIC.tar.gz"
+run_command(f'wget -O {intellij_tarball} "https://download.jetbrains.com/idea/ideaIC-latest.tar.gz"')
+run_command('sudo tar -xzf ideaIC.tar.gz -C /opt/')
+# Renombrar la carpeta descomprimida para facilitar acceso (puede variar versión)
+run_command('sudo mv /opt/idea-IC-* /opt/intellij-idea-community')
+# Crear enlace simbólico para comando global
+run_command('sudo ln -sf /opt/intellij-idea-community/bin/idea.sh /usr/local/bin/intellij')
 
 # Instalar la versión estable actual de Python y pip
 run_command('sudo apt update')
